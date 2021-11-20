@@ -39,7 +39,7 @@ app.use("/api/v1/", todoRouter);
 
 // health check end-point
 app.use("/", (_req: Request, res: Response) => {
-  return res.status(200).send("Up");
+  return res.status(200).send("Up!");
 });
 
 app.all("*", async (_req, _res) => {
