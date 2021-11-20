@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: server-deployment
-  namespace: node-express-typescript
+  namespace: node-express-typescript-k8-gke
 spec:
   replicas: 1
   selector:
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: react-gke-backend-container
-          image: "gcr.io/react-gke-terraform/node-express-typescript"
+          image: "gcr.io/react-gke-terraform/node-express-typescript-k8-gke"
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

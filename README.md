@@ -1,8 +1,8 @@
-# TypeScript Node Express GCP
+# TypeScript Node Express Google Kubernetes Engine (GKE)
 
 A reference project to build, and deploy a TypeScript Node Express service to Google Kubernetes Engine (GKE)
 
-![cicd gke workflow](https://github.com/MatthewCYLau/node-express-typescript/actions/workflows/cicd-cloud-run.yml/badge.svg)
+![cicd gke workflow](https://github.com/MatthewCYLau/node-express-typescript-k8-gke/actions/workflows/cicd-gke.yml/badge.svg)
 
 ## Pre-requisite
 
@@ -38,7 +38,11 @@ gcloud builds submit --tag gcr.io/<PROJECT-ID>/ts-node
 
 ## Deploy
 
-- Create two secrets on [Secrets Manager](https://cloud.google.com/secret-manager) named `jwt-key`, and `mongo-db-connection-string`
+- Encode the GCP service account key in base64 by running the following command. Then, create a Github action secret called `GCP_SERVICE_ACCOUNT_KEY`:
+
+```bash
+cat key.json | base64
+```
 
 - Deploy to Cloud Run by running:
 

@@ -7,9 +7,13 @@ on:
 
 env:
   PROJECT_ID: react-gke-terraform
-  IMAGE: node-express-typescript
+  IMAGE: node-express-typescript-k8-gke
   REGISTRY_HOSTNAME: gcr.io
-  CLOUD_RUN_SERVICE: node-express-typescript
+  GKE_CLUSTER_NAME: node-express-typescript-k8-gke
+  REGION: europe-west2
+  DEPLOYMENT: server-deployment
+  CONTAINER_NAME: react-gke-backend-container
+  NAMESPACE: node-express-typescript-k8-gke
 
 jobs:
   setup-build-publish-deploy:
@@ -28,6 +32,7 @@ jobs:
           service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
       - run: |
           gcloud --quiet auth configure-docker
+          gcloud container clusters get-credentials $GKE_CLUSTER_NAME --region=$REGION
       # Build the Docker image
       - name: Build
         run: |-
@@ -41,5 +46,5 @@ jobs:
           docker push "$REGISTRY_HOSTNAME"/$PROJECT_ID/"$IMAGE":latest
       - name: Deploy
         run: |
-          gcloud run deploy ${CLOUD_RUN_SERVICE} --image "$REGISTRY_HOSTNAME/$PROJECT_ID/$IMAGE:$GITHUB_SHA" --region europe-west1 \
-          --update-secrets=MONGO_DB_CONNECTION_STRING=mongo-db-connection-string:latest,JWT_KEY=jwt-key:latest
+          kubectl set image deployment/${DEPLOYMENT} ${CONTAINER_NAME}=${REGISTRY_HOSTNAME}/${PROJECT_ID}/${IMAGE}:${GITHUB_SHA} \
+          --namespace=${NAMESPACE}

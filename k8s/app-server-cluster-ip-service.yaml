@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: app-server-cluster-ip-service
-  namespace: node-express-typescript
+  namespace: node-express-typescript-k8-gke
 spec:
   type: ClusterIP
   selector:

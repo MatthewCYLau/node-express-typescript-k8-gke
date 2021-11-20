@@ -1,5 +1,5 @@
 resource "google_container_cluster" "app_cluster" {
-  name             = "node-express-typescript-app-gke-cluster"
+  name             = "node-express-typescript-k8-gke"
   location         = var.region
   enable_autopilot = true
   vertical_pod_autoscaling {
@@ -8,7 +8,7 @@ resource "google_container_cluster" "app_cluster" {
 }
 
 resource "google_compute_global_address" "external_static_ip" {
-  name         = "node-express-typescript-static-ip"
+  name         = "app-ingress-static-ip"
   address_type = "EXTERNAL"
   ip_version   = "IPV4"
   project      = var.project
