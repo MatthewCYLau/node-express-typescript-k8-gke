@@ -1,0 +1,6 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: node-express-typescript
+  labels:
+    name: node-express-typescript

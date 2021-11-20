@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: node-express-typescript-ingress
+  namespace: node-express-typescript
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "node-express-typescript-static-ip"
+    kubernetes.io/ingress.allow-http: "true"
+    kubernetes.io/ingress.class: "gce"
+spec:
+  defaultBackend:
+    service:
+      name: app-server-cluster-ip-service
+      port:
+        number: 8080

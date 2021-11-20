@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-deployment
+  namespace: node-express-typescript
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: api-server
+  template:
+    metadata:
+      labels:
+        component: api-server
+    spec:
+      containers:
+        - name: react-gke-backend-container
+          image: "gcr.io/react-gke-terraform/node-express-typescript"
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: REDIS_HOST
+              value: redis-cluster-ip-service
+            - name: MONGO_DB_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: app-server-secrets
+                  key: MONGO_DB_CONNECTION_STRING
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: app-server-secrets
+                  key: JWT_KEY

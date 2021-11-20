@@ -1,0 +1,45 @@
+name: Build and Deploy to GKE
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  PROJECT_ID: react-gke-terraform
+  IMAGE: node-express-typescript
+  REGISTRY_HOSTNAME: gcr.io
+  CLOUD_RUN_SERVICE: node-express-typescript
+
+jobs:
+  setup-build-publish-deploy:
+    name: Setup, Build, Publish, and Deploy
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://node-express-typescript-sxzla7yera-ew.a.run.app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: react-gke-terraform
+          service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+      - run: |
+          gcloud --quiet auth configure-docker
+      # Build the Docker image
+      - name: Build
+        run: |-
+          docker build -t \
+          "$REGISTRY_HOSTNAME/$PROJECT_ID/$IMAGE:$GITHUB_SHA" -t \
+          "$REGISTRY_HOSTNAME/$PROJECT_ID/$IMAGE:latest" .
+      # Push the Docker image to Google Container Registry
+      - name: Push
+        run: |
+          docker push "$REGISTRY_HOSTNAME/$PROJECT_ID/$IMAGE:$GITHUB_SHA" 
+          docker push "$REGISTRY_HOSTNAME"/$PROJECT_ID/"$IMAGE":latest
+      - name: Deploy
+        run: |
+          gcloud run deploy ${CLOUD_RUN_SERVICE} --image "$REGISTRY_HOSTNAME/$PROJECT_ID/$IMAGE:$GITHUB_SHA" --region europe-west1 \
+          --update-secrets=MONGO_DB_CONNECTION_STRING=mongo-db-connection-string:latest,JWT_KEY=jwt-key:latest

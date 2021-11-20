@@ -1,0 +1,18 @@
+version: "3"
+services:
+  redis:
+    image: "redis:latest"
+  api:
+    depends_on:
+      - redis
+    build:
+      dockerfile: Dockerfile
+      context: .
+    image: node-express-typescript
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    env_file:
+      - .env
+    ports:
+      - 8080:8080
