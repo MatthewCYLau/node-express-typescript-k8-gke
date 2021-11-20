@@ -6,7 +6,7 @@ A reference project to build, and deploy a TypeScript Node Express service to Go
 
 ## Pre-requisite
 
-- Please ensure you have [Google Cloud SDK](https://cloud.google.com/sdk/docs/install) installed locally
+- Please ensure you have installed [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli), and [Google Cloud SDK](https://cloud.google.com/sdk/docs/install)
 - Install Redis by follow official documentations [here](https://redis.io/topics/quickstart) and start Redis i.e.:
 
 ```bash
@@ -30,10 +30,13 @@ npm i # installs Node dependencies
 npm run dev` # app listening at http://localhost:8080
 ```
 
-## Build
+## Create GCP resources
 
 ```bash
-gcloud builds submit --tag gcr.io/<PROJECT-ID>/ts-node
+cd deploy # change to deploy directory
+terraform init # initialises Terraform
+terraform apply # deploys GCP stack
+terraform destroy # destroys GCP stack
 ```
 
 ## Deploy
@@ -44,17 +47,13 @@ gcloud builds submit --tag gcr.io/<PROJECT-ID>/ts-node
 cat key.json | base64
 ```
 
-- Deploy to Cloud Run by running:
+- Run `scripts/set-k8s.sh` to apply various Kubernetes configurations
 
-```bash
-gcloud run deploy --image gcr.io/<PROJECT-ID>/ts-node --platform managed
-```
-
-- Allow Cloud Run service access to the secrets as secret environment variables. See GCP Cloud Run documentation [here](https://cloud.google.com/run/docs/configuring/secrets#mounting-secrets)
+- Merge into `master` branch to trigger Github Action workflow to deploy to GKE
 
 ## Usage
 
-- Make a `GET` request at `<CLOUD-RUN-SERVICE-URL>/ping`
+- Make a `GET` request at `<EXTERNAL-STATIC-IP>` for health check end-point
 
 ## Contributing
 

@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: production
-      url: https://node-express-typescript-sxzla7yera-ew.a.run.app
+      url: 34.98.99.174
     steps:
       - name: Checkout
         uses: actions/checkout@v2
