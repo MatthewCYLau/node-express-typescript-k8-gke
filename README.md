@@ -7,7 +7,7 @@ A reference project to build, and deploy a TypeScript Node Express service to Go
 ## Pre-requisite
 
 - Please ensure you have installed [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli), and [Google Cloud SDK](https://cloud.google.com/sdk/docs/install)
-- Install Redis by follow official documentations [here](https://redis.io/topics/quickstart) and start Redis i.e.:
+- Install Redis by follow official documentations [here](https://redis.io/topics/quickstart) and start Redis:
 
 ```bash
 redis-server # then in a new terminal run redis-cli ping
@@ -18,7 +18,6 @@ redis-server # then in a new terminal run redis-cli ping
 - Create a `.env` file at project root directory, and populate with following:
 
 ```
-PORT=<PORT-NUMBER>
 JWT_KEY=<A-SECRET-JWT-TOKEN>
 MONGO_DB_CONNECTION_STRING=<YOUR-MONGO-DB-CONNECTION-STRING>
 ```
@@ -27,7 +26,7 @@ MONGO_DB_CONNECTION_STRING=<YOUR-MONGO-DB-CONNECTION-STRING>
 
 ```bash
 npm i # installs Node dependencies
-npm run dev` # app listening at http://localhost:8080
+npm run dev # app listening at http://localhost:8080
 ```
 
 ## Create GCP resources
