@@ -9,7 +9,7 @@ terraform {
 
 terraform {
   backend "gcs" {
-    bucket = "node-express-typescript-tf-state"
+    bucket = "node-express-typescript-k8-gke-tf-state"
     prefix = "terraform/state"
   }
 }
