@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: production
-      url: 34.98.99.174
+      url: http://34.98.99.174
     steps:
       - name: Checkout
         uses: actions/checkout@v2
