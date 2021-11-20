@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis-deployment
-  namespace: node-express-typescript-k8-gke
+  namespace: node-gke
 spec:
   replicas: 1
   selector:

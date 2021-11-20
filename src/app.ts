@@ -15,10 +15,6 @@ import cors from "cors";
 import helmet from "helmet";
 import connectDB from "./db/connect";
 
-if (!process.env.PORT) {
-  process.exit(1);
-}
-
 const PORT = process.env.PORT || 8080;
 
 // set-up Express app

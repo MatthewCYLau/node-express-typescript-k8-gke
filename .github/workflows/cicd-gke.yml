@@ -13,7 +13,7 @@ env:
   REGION: europe-west2
   DEPLOYMENT: server-deployment
   CONTAINER_NAME: react-gke-backend-container
-  NAMESPACE: node-express-typescript-k8-gke
+  NAMESPACE: node-gke
 
 jobs:
   setup-build-publish-deploy:

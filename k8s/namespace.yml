@@ -1,6 +1,6 @@
 kind: Namespace
 apiVersion: v1
 metadata:
-  name: node-express-typescript-k8-gke
+  name: node-gke
   labels:
-    name: node-express-typescript-k8-gke
+    name: node-gke
