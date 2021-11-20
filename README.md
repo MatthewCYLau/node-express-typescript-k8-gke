@@ -47,7 +47,7 @@ terraform destroy # destroys GCP stack
 cat key.json | base64
 ```
 
-- Run `scripts/set-k8s.sh` to apply various Kubernetes configurations
+- Run `scripts/apply-k8s.sh` to apply various Kubernetes configurations
 
 - Merge into `master` branch to trigger Github Action workflow to deploy to GKE
 
