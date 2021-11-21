@@ -4,3 +4,5 @@ Dockerfile
 README.md
 build
 node_modules
+deploy
+k8s
