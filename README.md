@@ -52,7 +52,8 @@ cat key.json | base64
 
 ## Usage
 
-- Make a `GET` request at `<EXTERNAL-STATIC-IP>` for health check end-point
+- Using Postman, make a `GET` request at `<EXTERNAL-STATIC-IP>` for health check end-point
+- Note, you may need to disable SSL certificate verification on Postman. See tutorial [here](https://docs.pingidentity.com/bundle/pingintelligence-44/page/hyz1564008974617.html#:~:text=Click%20the%20Wrench%20icon%20on,to%20disable%20SSL%20certificate%20verification.)
 
 ## Contributing
 
