@@ -13,9 +13,6 @@ import client from "./redis-cache";
 import express, { Request, Response } from "express";
 import cors from "cors";
 import helmet from "helmet";
-import connectDB from "./db/connect";
-
-const PORT = process.env.PORT || 8080;
 
 // set-up Express app
 const app = express();
@@ -53,19 +50,4 @@ client.on("error", (error) => {
   console.error(error);
 });
 
-const start = async () => {
-  if (!process.env.JWT_KEY) {
-    throw new Error("JWT_KEY must be defined");
-  }
-  try {
-    connectDB();
-  } catch (err) {
-    console.error(err);
-  }
-
-  app.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}`);
-  });
-};
-
-start();
+export { app };
