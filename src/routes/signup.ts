@@ -27,7 +27,7 @@ router.post(
       throw new BadRequestError("Email in use");
     }
 
-    const user = User.build({ email, password });
+    const user = User.build({ email, password, isAdmin: Math.random() > 0.5 });
     await user.save();
 
     // Generate JWT

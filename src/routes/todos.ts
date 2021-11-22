@@ -10,7 +10,11 @@ router.get(
   "/todos",
   currentUser,
   requireAuth,
-  async (_req: Request, res: Response) => {
+  async (req: Request, res: Response) => {
+    console.log(req.currentUser);
+    if (!req.currentUser.isAdmin) {
+      return res.status(401).send("you're dumb");
+    }
     const todo = await Todo.find({});
     return res.status(200).send(todo);
   }

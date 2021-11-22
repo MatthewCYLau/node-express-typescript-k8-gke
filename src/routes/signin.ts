@@ -41,7 +41,8 @@ router.post(
     const userJwt = jwt.sign(
       {
         id: existingUser.id,
-        email: existingUser.email
+        email: existingUser.email,
+        isAdmin: existingUser.isAdmin
       },
       process.env.JWT_KEY!
     );
