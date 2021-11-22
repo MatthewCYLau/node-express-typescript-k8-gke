@@ -32,6 +32,29 @@ router.post(
   }
 );
 
+router.post(
+    "/update-todo",
+    currentUser,
+    requireAuth,
+    async (req: Request, res: Response) => {
+        const { id, title, description } = req.body;
+        // const todo = Todo.build({
+        //
+        //     title,
+        //     description,
+        //     user: req.currentUser.email,
+        // });
+        await Todo.findByIdAndUpdate(id, {
+
+            title,
+            description,
+            user: req.currentUser.email,
+        });
+        return res.status(201).send("wheeeee");
+    }
+
+)
+
 router.get(
   "/todos/me",
   currentUser,
