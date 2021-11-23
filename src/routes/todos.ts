@@ -80,4 +80,22 @@ router.delete(
   }
 );
 
+router.put(
+  "/todos/:id",
+  currentUser,
+  requireAuth,
+  async (req: Request, res: Response) => {
+    try {
+      await Todo.findByIdAndUpdate(req.params.id, req.body, {
+        useFindAndModify: false,
+      });
+      const todo = await Todo.findById(req.params.id);
+      return res.status(200).send(todo);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send();
+    }
+  }
+);
+
 export { router as todoRouter };
