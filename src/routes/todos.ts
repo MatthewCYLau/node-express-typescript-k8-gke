@@ -11,8 +11,13 @@ router.get(
   currentUser,
   requireAuth,
   async (_req: Request, res: Response) => {
-    const todo = await Todo.find({});
-    return res.status(200).send(todo);
+    try {
+      const todos = await Todo.find({}).populate("user");
+      return res.status(200).send(todos);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send();
+    }
   }
 );
 
@@ -25,7 +30,7 @@ router.post(
     const todo = Todo.build({
       title,
       description,
-      user: req.currentUser.email,
+      user: req.currentUser.id,
     });
     await todo.save();
     return res.status(201).send(todo);
@@ -37,8 +42,10 @@ router.get(
   currentUser,
   requireAuth,
   async (req: Request, res: Response) => {
-    const todo = await Todo.find({ user: req.currentUser.email });
-    return res.status(200).send(todo);
+    const todos = await Todo.find({ user: req.currentUser.email }).populate(
+      "user"
+    );
+    return res.status(200).send(todos);
   }
 );
 
@@ -53,7 +60,9 @@ router.get(
         if (todo) {
           return res.status(200).send(JSON.parse(todo));
         } else {
-          const todo = await Todo.findById(req.params.id);
+          const todo = await (
+            await Todo.findById(req.params.id).populate("user")
+          ).execPopulate();
 
           if (!todo) {
             return res.status(404).send();
@@ -89,7 +98,9 @@ router.put(
       await Todo.findByIdAndUpdate(req.params.id, req.body, {
         useFindAndModify: false,
       });
-      const todo = await Todo.findById(req.params.id);
+      const todo = await (
+        await Todo.findById(req.params.id).populate("user")
+      ).execPopulate();
       return res.status(200).send(todo);
     } catch (error) {
       console.log(error);

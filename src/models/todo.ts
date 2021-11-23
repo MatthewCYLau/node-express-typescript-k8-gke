@@ -1,9 +1,10 @@
-import mongoose from "mongoose";
+import mongoose, { Document, PopulatedDoc } from "mongoose";
+import { UserAttrs } from "./user";
 
 interface ITodo {
   title: string;
   description: string;
-  user: string;
+  user: PopulatedDoc<UserAttrs & Document>;
 }
 
 interface todoModelInterface extends mongoose.Model<TodoDoc> {
@@ -13,7 +14,7 @@ interface todoModelInterface extends mongoose.Model<TodoDoc> {
 interface TodoDoc extends mongoose.Document {
   title: string;
   description: string;
-  user: string;
+  user: PopulatedDoc<UserAttrs & Document>;
 }
 
 const todoSchema = new mongoose.Schema(
@@ -26,10 +27,7 @@ const todoSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    user: {
-      type: String,
-      required: true,
-    },
+    user: { type: "ObjectId", ref: "User" },
   },
   {
     toJSON: {
@@ -45,11 +43,5 @@ todoSchema.statics.build = (attr: ITodo) => {
 };
 
 const Todo = mongoose.model<TodoDoc, todoModelInterface>("Todo", todoSchema);
-
-Todo.build({
-  title: "some title",
-  description: "some description",
-  user: "User who created the todo",
-});
 
 export { Todo };
