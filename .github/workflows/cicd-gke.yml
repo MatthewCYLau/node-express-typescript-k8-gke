@@ -6,13 +6,13 @@ on:
       - master
 
 env:
-  PROJECT_ID: react-gke-terraform
-  IMAGE: node-express-typescript-k8-gke
+  PROJECT_ID: open-source-apps-001
+  IMAGE: node-app
   REGISTRY_HOSTNAME: gcr.io
-  GKE_CLUSTER_NAME: node-express-typescript-k8-gke
+  GKE_CLUSTER_NAME: node-app-prod
   REGION: europe-west2
   DEPLOYMENT: server-deployment
-  CONTAINER_NAME: react-gke-backend-container
+  CONTAINER_NAME: node-app-backend-container
   NAMESPACE: node-gke
 
 jobs:

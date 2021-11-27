@@ -9,13 +9,13 @@ terraform {
 
 terraform {
   backend "gcs" {
-    bucket = "node-express-typescript-k8-gke-tf-state"
+    bucket = "node-k8-tf-state-002"
     prefix = "terraform/state"
   }
 }
 
 provider "google" {
-  region      = var.region
-  zone        = var.zone
-  project     = var.project
+  region  = var.region
+  zone    = var.zone
+  project = var.project
 }

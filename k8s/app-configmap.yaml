@@ -4,4 +4,4 @@ metadata:
   name: env-config
   namespace: node-gke
 data:
-  port: 8080
+  port: "8080"

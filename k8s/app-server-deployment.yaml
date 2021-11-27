@@ -14,8 +14,8 @@ spec:
         component: api-server
     spec:
       containers:
-        - name: react-gke-backend-container
-          image: "gcr.io/react-gke-terraform/node-express-typescript-k8-gke"
+        - name: node-app-backend-container
+          image: "gcr.io/open-source-apps-001/node-app"
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

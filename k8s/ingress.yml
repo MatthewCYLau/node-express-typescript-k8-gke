@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: node-express-typescript-k8-gke-ingress
+  name: node-app-ingress
   namespace: node-gke
   annotations:
     kubernetes.io/ingress.global-static-ip-name: "app-ingress-static-ip"

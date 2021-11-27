@@ -1,5 +1,5 @@
 resource "google_container_cluster" "app_cluster" {
-  name             = "node-express-typescript-k8-gke"
+  name             = "node-app-${var.environment}"
   location         = var.region
   enable_autopilot = true
   vertical_pod_autoscaling {
