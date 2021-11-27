@@ -2,7 +2,7 @@ import connectDB from "./db/connect";
 
 import { app } from "./app";
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8081;
 
 const start = async () => {
   if (!process.env.JWT_KEY) {

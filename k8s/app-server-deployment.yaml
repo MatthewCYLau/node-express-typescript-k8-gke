@@ -20,6 +20,11 @@ spec:
           ports:
             - containerPort: 8080
           env:
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config
+                  key: port
             - name: REDIS_HOST
               value: redis-cluster-ip-service
             - name: MONGO_DB_CONNECTION_STRING

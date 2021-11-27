@@ -32,6 +32,7 @@ npm run dev # app listening at http://localhost:8080
 ## Create GCP resources
 
 ```bash
+gcloud auth application-default login # authenticate with GCP
 cd deploy # change to deploy directory
 terraform init # initialises Terraform
 terraform apply # deploys GCP stack
