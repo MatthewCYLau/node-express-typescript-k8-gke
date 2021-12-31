@@ -30,7 +30,7 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
       - name: Configure Docker
-      - run: |
+        run: |
           gcloud --quiet auth configure-docker
       - name: Get GKE credentials
         uses: "google-github-actions/get-gke-credentials@v0"
