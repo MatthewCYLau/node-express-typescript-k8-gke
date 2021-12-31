@@ -25,16 +25,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Authorization with Cloud SDK
+      - name: Set up Cloud SDK
         uses: "google-github-actions/auth@v0"
         with:
           credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
-      - name: Set up Cloud SDK
-        uses: "google-github-actions/setup-gcloud@v0"
-      - name: "Use gcloud CLI"
-        run: |
+      - run: |
           gcloud --quiet auth configure-docker
-          gcloud container clusters get-credentials $GKE_CLUSTER_NAME --region=$REGION
+      - name: Get GKE credentials
+        uses: "google-github-actions/get-gke-credentials@v0"
+        with:
+          cluster_name: $GKE_CLUSTER_NAME
+          location: $REGION
       # Build the Docker image
       - name: Build
         run: |-
