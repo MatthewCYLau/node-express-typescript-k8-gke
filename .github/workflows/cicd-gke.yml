@@ -32,7 +32,7 @@ jobs:
       - name: Set up Cloud SDK
         uses: "google-github-actions/setup-gcloud@v0"
       - name: "Use gcloud CLI"
-      - run: |
+        run: |
           gcloud --quiet auth configure-docker
           gcloud container clusters get-credentials $GKE_CLUSTER_NAME --region=$REGION
       # Build the Docker image
